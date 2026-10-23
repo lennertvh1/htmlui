@@ -342,8 +342,9 @@ describe("App Component - Repository Description", () => {
     expect(screen.getByText("Test Repository")).toBeInTheDocument();
 
     // Verify it links to the repository page
+    // de naam staat naast HomeBase Back-up, die naar het startscherm leidt
     const repoLink = screen.getByText("Test Repository").closest("a");
-    expect(repoLink).toHaveAttribute("href", "/repo");
+    expect(repoLink).toHaveAttribute("href", "/overview");
   });
 });
 

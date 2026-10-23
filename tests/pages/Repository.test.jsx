@@ -191,7 +191,7 @@ describe("Repository component - connected state", () => {
       const descriptionInput = screen.getByDisplayValue(""); // Empty value
       expect(descriptionInput).toHaveAttribute("name", "status.description");
       expect(descriptionInput).toHaveClass("is-invalid");
-      expect(screen.getByText("Description Is Required")).toBeInTheDocument();
+      expect(screen.getByText("Give a name.")).toBeInTheDocument();
     });
   });
 

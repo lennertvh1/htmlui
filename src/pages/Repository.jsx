@@ -9,6 +9,8 @@ import InputGroup from "react-bootstrap/InputGroup";
 import Spinner from "react-bootstrap/Spinner";
 import { handleChange } from "../forms";
 import { SetupRepository } from "../components/SetupRepository";
+import { HomeBasePair } from "../components/HomeBasePair";
+import { t } from "../utils/i18n";
 import { CLIEquivalent } from "../components/CLIEquivalent";
 import { cancelTask } from "../utils/taskutil";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -188,10 +190,10 @@ export class Repository extends Component {
                   />
                   &nbsp;
                   <Button data-testid="update-description" size="sm" onClick={this.updateDescription} type="button">
-                    Update Description
+                    {t("Naam opslaan")}
                   </Button>
                 </InputGroup>
-                <Form.Control.Feedback type="invalid">Description Is Required</Form.Control.Feedback>
+                <Form.Control.Feedback type="invalid">{t("Geef een naam.")}</Form.Control.Feedback>
               </Form.Group>
             </Row>
             {this.state.status.readonly && (
@@ -208,7 +210,7 @@ export class Repository extends Component {
               <>
                 <Row>
                   <Form.Group as={Col}>
-                    <Form.Label className="required">Server URL</Form.Label>
+                    <Form.Label className="required">{t("Server")}</Form.Label>
                     <Form.Control readOnly defaultValue={this.state.status.apiServerURL} />
                   </Form.Group>
                 </Row>
@@ -268,7 +270,7 @@ export class Repository extends Component {
             )}
             <Row>
               <Form.Group as={Col}>
-                <Form.Label className="required">Connected as:</Form.Label>
+                <Form.Label className="required">{t("Verbonden als")}</Form.Label>
                 <Form.Control readOnly defaultValue={this.state.status.username + "@" + this.state.status.hostname} />
               </Form.Group>
             </Row>
@@ -278,7 +280,7 @@ export class Repository extends Component {
             <Row>
               <Col>
                 <Button data-testid="disconnect" size="sm" variant="danger" onClick={this.disconnect}>
-                  Disconnect
+                  {t("Loskoppelen")}
                 </Button>
               </Col>
             </Row>
@@ -295,6 +297,8 @@ export class Repository extends Component {
       );
     }
 
+    // Eerst koppelen met HomeBaseOS; de gewone opties van Kopia staan achter "Andere opslag".
+    if (!this.state.advanced) return <HomeBasePair onAdvanced={() => this.setState({ advanced: true })} />;
     return <SetupRepository />;
   }
 }
