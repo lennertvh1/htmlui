@@ -1,25 +1,30 @@
-// Taal van HomeBase Back-up, zoals in HomeBaseOS: de Nederlandse tekst is de sleutel, {naam} wordt ingevuld.
-// Standaard volgt de app de taal van het systeem (Nederlands, anders Engels); in Voorkeuren kan je ze kiezen.
-import { en } from "../lang/en";
+// Language of HomeBase Backup, like in HomeBaseOS: the English text is the key, {name} is filled in.
+// By default the app follows the system language (if there is a translation, otherwise English); you can choose it in Preferences.
+import { nl } from "../lang/nl";
 
-const DICTS = { en };
+// Translations; English is built in. To add a language: a file in src/lang/ and a line here.
+export const LANGS = {
+  en: { name: "English", locale: "en-GB", dict: null },
+  nl: { name: "Nederlands", locale: "nl-BE", dict: nl },
+};
 
 function detect() {
   try {
     const stored = localStorage.getItem("hb-lang");
-    if (stored === "nl" || stored === "en") return stored;
+    if (stored && LANGS[stored]) return stored;
   } catch {
-    /* privévenster */
+    /* private window */
   }
-  return (navigator.language || "nl").toLowerCase().startsWith("nl") ? "nl" : "en";
+  const sys = (navigator.language || "en").toLowerCase().split("-")[0];
+  return LANGS[sys] ? sys : "en";
 }
 
 export const lang = detect();
-export const locale = lang === "nl" ? "nl-BE" : "en-GB";
+export const locale = LANGS[lang].locale;
 document.documentElement.lang = lang;
 
 export function t(text, vars) {
-  const d = DICTS[lang];
+  const d = LANGS[lang].dict;
   const s = d && d[text] != null ? d[text] : text;
   return vars ? s.replace(/\{(\w+)\}/g, (m, k) => (k in vars ? vars[k] : m)) : s;
 }
@@ -28,12 +33,12 @@ export function setLang(l) {
   try {
     localStorage.setItem("hb-lang", l);
   } catch {
-    /* privévenster */
+    /* private window */
   }
   window.location.reload();
 }
 
-// "3 uur geleden", "over 20 minuten"
+// "3 hours ago", "in 20 minutes"
 export function ago(date) {
   const ms = new Date(date).getTime();
   if (!ms) return "";

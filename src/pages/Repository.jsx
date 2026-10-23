@@ -190,10 +190,10 @@ export class Repository extends Component {
                   />
                   &nbsp;
                   <Button data-testid="update-description" size="sm" onClick={this.updateDescription} type="button">
-                    {t("Naam opslaan")}
+                    {t("Save name")}
                   </Button>
                 </InputGroup>
-                <Form.Control.Feedback type="invalid">{t("Geef een naam.")}</Form.Control.Feedback>
+                <Form.Control.Feedback type="invalid">{t("Give a name.")}</Form.Control.Feedback>
               </Form.Group>
             </Row>
             {this.state.status.readonly && (
@@ -270,7 +270,7 @@ export class Repository extends Component {
             )}
             <Row>
               <Form.Group as={Col}>
-                <Form.Label className="required">{t("Verbonden als")}</Form.Label>
+                <Form.Label className="required">{t("Connected as")}</Form.Label>
                 <Form.Control readOnly defaultValue={this.state.status.username + "@" + this.state.status.hostname} />
               </Form.Group>
             </Row>
@@ -280,7 +280,7 @@ export class Repository extends Component {
             <Row>
               <Col>
                 <Button data-testid="disconnect" size="sm" variant="danger" onClick={this.disconnect}>
-                  {t("Loskoppelen")}
+                  {t("Disconnect")}
                 </Button>
               </Col>
             </Row>
@@ -297,7 +297,7 @@ export class Repository extends Component {
       );
     }
 
-    // Eerst koppelen met HomeBaseOS; de gewone opties van Kopia staan achter "Andere opslag".
+    // Pair with HomeBaseOS first; Kopia's regular options are behind "Other storage".
     if (!this.state.advanced) return <HomeBasePair onAdvanced={() => this.setState({ advanced: true })} />;
     return <SetupRepository />;
   }

@@ -1,29 +1,29 @@
-# Interface van HomeBase Back-up
+# HomeBase Backup interface
 
-Deze fork van [kopia/htmlui](https://github.com/kopia/htmlui) is de interface van **HomeBase Back-up**, de app voor pc's en Macs die een back-up maakt naar [HomeBaseOS](https://github.com/lennertvh1/homebaseos). De app zelf staat in de fork [lennertvh1/kopia](https://github.com/lennertvh1/kopia) (branch `homebase`, zie `HOMEBASE.md` daar). Apache License 2.0, zoals het origineel.
+This fork of [kopia/htmlui](https://github.com/kopia/htmlui) is the interface of **HomeBase Backup**, the app for PCs and Macs that backs up to [HomeBaseOS](https://github.com/lennertvh1/homebaseos). The app itself is in the fork [lennertvh1/kopia](https://github.com/lennertvh1/kopia) (branch `homebase`, see `HOMEBASE.md` there). Apache License 2.0, like the original.
 
-## Wat is er anders dan htmlui
+## What is different from htmlui
 
-| Waar | Wijziging |
+| Where | Change |
 |---|---|
-| `src/css/HomeBase.css` | De stijl van het dashboard van HomeBaseOS: dezelfde tokens (licht = ochtendnevel, donker = avond), glas, lettertype Onest, knoppen en velden. Ook de schermen van Kopia (tabellen, kaarten, tabbladen, Bootstrap) volgen die tokens. Hou de tokens gelijk met `homebaseos/public/style.css`. |
-| `index.html` | Titel, pictogram en hetzelfde landschap als achtergrond. |
-| `src/App.jsx` | Bovenbalk zoals in HomeBaseOS (Back-ups, Alle back-ups, Taken, Regels, Verbinding, Voorkeuren); schermen van Kopia op een glazen paneel; `/` → `/overview`. |
-| `src/pages/Overview.jsx` | Nieuw startscherm: status ("Alles is bewaard", te oud, met fouten, bezig) en een kaart per map met *Nu bewaren* en *Bekijken en terugzetten*. |
-| `src/components/HomeBasePair.jsx` | Nieuw: koppelen met HomeBaseOS (adres + koppelcode) en *Wat wil je bewaren?*. De oorspronkelijke opties staan achter *Andere opslag (geavanceerd)*. |
-| `src/utils/homebase.js` | Koppelen (via `window.kopiaUI.homebasePair` in de app; in een browser rechtstreeks), mappen toevoegen. |
-| `src/utils/i18n.js`, `src/lang/en.js` | Nederlands en Engels: de Nederlandse tekst is de sleutel, zoals in HomeBaseOS. Taal volgt het systeem of Voorkeuren. |
-| `src/pages/Preferences.jsx`, `src/pages/Repository.jsx` | Vertaald; taalkeuze; alleen de thema's licht en donker. |
-| `public/fonts` | Onest (variabel lettertype, SIL Open Font License, zie `OFL.txt`), zodat de app zonder internet werkt. |
-| `public/*.png`, `favicon.ico`, `homebase.svg`, `manifest.json` | Pictogrammen en naam. |
-| `tests/` | Aangepast aan de nieuwe teksten en het startscherm. |
+| `src/css/HomeBase.css` | The style of the HomeBaseOS dashboard: the same tokens (light = morning mist, dark = evening), glass, the Onest typeface, buttons and fields. Kopia's screens (tables, cards, tabs, Bootstrap) follow those tokens too. Keep the tokens in sync with `homebaseos/public/style.css`. |
+| `index.html` | Title, icon and the same landscape as the background. |
+| `src/App.jsx` | Top bar like in HomeBaseOS (Backups, All backups, Tasks, Rules, Connection, Preferences); Kopia's screens on a glass panel; `/` → `/overview`. |
+| `src/pages/Overview.jsx` | New home screen: status ("Everything is backed up", too old, with errors, running) and a card per folder with *Back up now* and *View and restore*. |
+| `src/components/HomeBasePair.jsx` | New: pairing with HomeBaseOS (address + pairing code) and *What do you want to keep safe?*. The original options are behind *Other storage (advanced)*. |
+| `src/utils/homebase.js` | Pairing (via `window.kopiaUI.homebasePair` in the app; directly in a browser), adding folders. |
+| `src/utils/i18n.js`, `src/lang/nl.js` | English and Dutch: the English text is the key, like in HomeBaseOS. The language follows the system or Preferences. To add a language: a file in `src/lang/` and a line in `LANGS`. |
+| `src/pages/Preferences.jsx`, `src/pages/Repository.jsx` | Translated; language choice; only the light and dark themes. |
+| `public/fonts` | Onest (variable typeface, SIL Open Font License, see `OFL.txt`), so the app works without internet. |
+| `public/*.png`, `favicon.ico`, `homebase.svg`, `manifest.json` | Icons and name. |
+| `tests/` | Adapted to the new texts and the home screen. |
 
-De schermen van Kopia zelf (geschiedenis, terugzetten, beleid, taken) zijn herstijld maar nog Engels.
+Kopia's own screens (history, restore, policies, tasks) are restyled but only in English.
 
-## Ontwikkelen
+## Development
 
 ```bash
 npm ci
-npm run build        # → build/, gebruikt door kopia/homebase/build-htmlui.sh
+npm run build        # → build/, used by kopia/homebase/build-htmlui.sh
 npx vitest run       # tests
 ```
